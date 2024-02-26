@@ -1,0 +1,10 @@
+.next
+.cache
+.yarn
+.pnp.cjs
+.pnp.loader.mjs
+public
+node_modules
+yarn.lock
+next-env.d.ts
+next.config.ts
