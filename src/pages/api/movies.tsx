@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-async function fetchMovies(query: string) {
+async function fetchMovies(query: string, page: string) {
   const apiKey = process.env.MOVIESDB_API_KEY;
-  const apiUrl = `${process.env.MOVIESDB_API_URL}?query=${query}&api_key=${apiKey}`;
+  const apiUrl = `${process.env.MOVIESDB_API_URL}?query=${query}&page=${page}&api_key=${apiKey}`;
 
   try {
     const response = await fetch(apiUrl);
@@ -23,9 +23,9 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'GET') {
-    const { query } = req.query;
+    const { query, page } = req.query;
     try {
-      const movies = await fetchMovies(query as string);
+      const movies = await fetchMovies(query as string, page as string);
       res.status(200).json(movies);
     } catch (error) {
       res.status(500).json({ message: 'Failed to fetch movies' });
