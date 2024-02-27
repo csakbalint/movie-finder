@@ -32,11 +32,5 @@ export const useMovies = ({ query, page = 1 }: GetMoviesParams) => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
     enabled: !!query,
-    initialData: {
-      results: [],
-      page: 1,
-      total_pages: 0,
-      total_results: 0,
-    },
   });
 };
