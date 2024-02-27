@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: movifiender-ui
+    ports:
+      - 3000:3000
+    networks:
+      - moviefinder-network
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    env_file:
+      - .env.local
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    volumes:
+      - ./.tmp/redis:/data
+    networks:
+      - moviefinder-network
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+networks:
+  moviefinder-network:
+    driver: bridge
