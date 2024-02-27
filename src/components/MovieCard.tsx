@@ -9,22 +9,7 @@ import {
 
 import React from 'react';
 
-interface Movie {
-  adult: boolean;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
+import { Movie } from '@/interfaces';
 
 interface MovieCardProps {
   movie: Movie;
@@ -37,7 +22,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         <CardMedia
           component="img"
           height="200"
-          image={movie.poster_path}
+          image={`${process.env.NEXT_PUBLIC_MOVIESDB_IMAGE_URL}${movie.poster_path}`}
           alt={movie.title}
         />
         <CardContent>

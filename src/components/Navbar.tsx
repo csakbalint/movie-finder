@@ -1,10 +1,14 @@
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 
-import React from 'react';
+import { FC } from 'react';
 
 import SearchBar from './SearchBar';
 
-const Navbar: React.FC = () => {
+interface Props {
+  handleChange: (term: string) => void;
+}
+
+const Navbar: FC<Props> = ({ handleChange }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -18,7 +22,7 @@ const Navbar: React.FC = () => {
             Movie finder
           </Typography>
           <Box>
-            <SearchBar />
+            <SearchBar handleChange={handleChange} />
           </Box>
         </Toolbar>
       </AppBar>

@@ -10,7 +10,8 @@ import {
   useTheme,
 } from '@mui/material';
 
-import React from 'react';
+import { debounce } from 'lodash-es';
+import React, { ChangeEventHandler, useEffect, useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,8 +53,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchBar: React.FC = () => {
+interface Props {
+  handleChange: (term: string) => void;
+}
+
+const SearchBar: React.FC<Props> = ({ handleChange }) => {
   const theme = useTheme();
+  const [search, setSearch] = useState('');
+  const debouncedSetSearch = debounce(setSearch, 500);
+  const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    debouncedSetSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    handleChange(search ?? '');
+  }, [search, handleChange]);
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -61,10 +76,12 @@ const SearchBar: React.FC = () => {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
+        onChange={handleSearchInputChange}
         inputProps={{ 'aria-label': 'search' }}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
+              disabled={!search}
               type="button"
               sx={{ p: 0.5, m: 0.5 }}
               aria-label="search"

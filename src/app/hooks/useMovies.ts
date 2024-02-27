@@ -29,6 +29,7 @@ export const useMovies = (query: string) => {
     queryFn: () => getMovies({ query }),
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
+    enabled: !!query,
     initialData: {
       results: [],
       page: 1,
