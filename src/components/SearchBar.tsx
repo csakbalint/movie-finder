@@ -64,9 +64,12 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     debouncedSetSearch(e.target.value);
   };
+  const handleSearchButtonClick = () => {
+    handleChange(search);
+  };
 
   useEffect(() => {
-    handleChange(search ?? '');
+    search.length > 2 && handleChange(search ?? '');
   }, [search, handleChange]);
 
   return (
@@ -85,6 +88,7 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
               type="button"
               sx={{ p: 0.5, m: 0.5 }}
               aria-label="search"
+              onClick={handleSearchButtonClick}
             >
               <ArrowForwardIcon sx={{ color: theme.palette.common.white }} />
             </IconButton>
