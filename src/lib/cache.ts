@@ -3,7 +3,7 @@ import { safeParseJson } from '@/utils';
 
 export const getCache = async (query: string, page: number) => {
   try {
-    const result = await redis.hget(query, page.toString());
+    const result = await redis.get(`${query}-${page}`);
     if (!result) {
       return null;
     }
@@ -15,7 +15,7 @@ export const getCache = async (query: string, page: number) => {
 
 export const setCache = async (query: string, page: number, value: unknown) => {
   try {
-    await redis.hset(query, page.toString(), JSON.stringify(value));
+    await redis.set(`${query}-${page}`, JSON.stringify(value), 'EX', 120);
   } catch (error) {
     return null;
   }
