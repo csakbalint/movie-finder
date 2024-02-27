@@ -1,6 +1,7 @@
 'use client';
 import { Box, Container, Pagination, Stack } from '@mui/material';
 
+import { isEmpty } from 'lodash-es';
 import React, { useState } from 'react';
 
 import { useMovies } from '@/app/hooks';
@@ -10,7 +11,7 @@ import Navbar from '@/components/Navbar';
 const MoviesPage = () => {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
-  const { data, isFetching } = useMovies({ query, page });
+  const { data, isFetching, isFetched } = useMovies({ query, page });
   const onChangePage = (value: number) => {
     setPage(value);
   };
@@ -26,8 +27,10 @@ const MoviesPage = () => {
         isCached={data?.cached ?? false}
       />
       <Container maxWidth="lg" sx={{ py: 2, flexGrow: 1, overflowY: 'auto' }}>
-        {!data && <EmptyMoviesHero />}
-        {data && <MovieCardContainer movies={data.results} />}
+        {isEmpty(data?.results) && (
+          <EmptyMoviesHero emptyResponse={isFetched} />
+        )}
+        {data?.results && <MovieCardContainer movies={data.results} />}
       </Container>
       {data && data.total_pages > 1 && (
         <Box display="flex" justifyContent="center" pt={2}>
