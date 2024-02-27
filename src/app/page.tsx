@@ -20,7 +20,11 @@ const MoviesPage = () => {
       flexGrow={1}
       sx={{ pb: 2, height: '100%', overflow: 'hidden' }}
     >
-      <Navbar handleChange={setQuery} isLoading={isFetching} />
+      <Navbar
+        handleChange={setQuery}
+        isLoading={isFetching}
+        isCached={data?.cached ?? false}
+      />
       <Container maxWidth="lg" sx={{ py: 2, flexGrow: 1, overflowY: 'auto' }}>
         {!data && <EmptyMoviesHero />}
         {data && <MovieCardContainer movies={data.results} />}

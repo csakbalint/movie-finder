@@ -13,11 +13,12 @@ import SearchStatus from '@/components/SearchStatus';
 import SearchBar from './SearchBar';
 
 interface Props {
+  isCached: boolean;
   isLoading: boolean;
   handleChange: (term: string) => void;
 }
 
-const Navbar: FC<Props> = ({ isLoading, handleChange }) => {
+const Navbar: FC<Props> = ({ isCached, isLoading, handleChange }) => {
   return (
     <AppBar position="static">
       <Toolbar
@@ -40,7 +41,7 @@ const Navbar: FC<Props> = ({ isLoading, handleChange }) => {
         <Box>
           <SearchBar handleChange={handleChange} />
         </Box>
-        <SearchStatus isLoading={isLoading} />
+        <SearchStatus isCached={isCached} isLoading={isLoading} />
       </Toolbar>
       <LinearProgress sx={{ visibility: isLoading ? 'visible' : 'hidden' }} />
     </AppBar>
