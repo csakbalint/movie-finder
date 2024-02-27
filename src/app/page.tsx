@@ -8,10 +8,15 @@ import { useMovies } from '@/app/hooks';
 import EmptyMoviesHero from '@/components/EmptyMoviesHero';
 import { MovieCardContainer } from '@/components/MovieCardContainer';
 import Navbar from '@/components/Navbar';
+import RequestErrorAlert from '@/components/RequestErrorAlert';
+
 const MoviesPage = () => {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
-  const { data, isFetching, isFetched } = useMovies({ query, page });
+  const { data, isFetching, isFetched, error } = useMovies({
+    query,
+    page,
+  });
   const onChangePage = (value: number) => {
     setPage(value);
   };
@@ -43,6 +48,7 @@ const MoviesPage = () => {
           />
         </Box>
       )}
+      <RequestErrorAlert error={error} />
     </Stack>
   );
 };
