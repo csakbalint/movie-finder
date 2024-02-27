@@ -16,13 +16,16 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const image = movie.poster_path
+    ? `${process.env.NEXT_PUBLIC_MOVIESDB_IMAGE_URL}${movie.poster_path}`
+    : '/movie-placeholder.png';
   return (
     <Card>
       <CardActionArea>
         <CardMedia
           component="img"
           height="200"
-          image={`${process.env.NEXT_PUBLIC_MOVIESDB_IMAGE_URL}${movie.poster_path}`}
+          image={image}
           alt={movie.title}
         />
         <CardContent>
