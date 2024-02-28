@@ -6,11 +6,17 @@ import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 
 interface Props {
-  isCached: boolean;
   isLoading: boolean;
+  isCached?: boolean;
+  hitCount?: number;
 }
 
-const SearchStatus: FC<Props> = ({ isCached, isLoading }) => {
+// FIXME: what's the point to display loading state, there is a progress bar for that
+const SearchStatus: FC<Props> = ({
+  isLoading,
+  isCached = false,
+  hitCount = 0,
+}) => {
   return (
     <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
       {isLoading ? (
@@ -21,7 +27,11 @@ const SearchStatus: FC<Props> = ({ isCached, isLoading }) => {
         <CloudDownloadOutlinedIcon />
       )}
       <Typography variant="body2" color="text.white" fontWeight="bold">
-        {isLoading ? 'Loading...' : isCached ? 'Cached' : 'Fetched'}
+        {isLoading
+          ? 'Loading...'
+          : isCached
+            ? `Cached (${hitCount})`
+            : 'Fetched'}
       </Typography>
     </Box>
   );

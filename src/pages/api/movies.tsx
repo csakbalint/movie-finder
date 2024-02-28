@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { GetManyResults, Movie } from '@/interfaces';
-import { getCache, setCache } from '@/lib/cache';
+import { cacheMovieResults, getCachedMovies } from '@/lib/cache';
 
 const API_KEY = process.env.MOVIESDB_API_KEY;
 const API_URL = process.env.MOVIESDB_API_URL;
@@ -35,10 +35,14 @@ export default async function handler(
     return;
   }
 
-  // TODO: validate and deserialize parameters
+  // TODO: validate and deserialize parameters so we can avoid casting them
   const { query, page } = req.query;
 
-  const cached = await getCache(query as string, parseInt(page as string));
+  const cached = await getCachedMovies(
+    query as string,
+    parseInt(page as string),
+  );
+  // TODO: add logging whether the cache was hit or not
   if (cached) {
     res.status(200).json({ ...cached, cached: true });
     return;
@@ -46,10 +50,12 @@ export default async function handler(
 
   try {
     const results = await fetchMovies(query as string, page as string);
-    setCache(query as string, parseInt(page as string), results);
+    cacheMovieResults(query as string, parseInt(page as string), results);
 
     res.status(200).json({ ...results, cached: false });
   } catch (error) {
+    // TODO: add logging
+    // TODO: we should send better error messages
     res.status(500).json({ message: 'Failed to fetch movies' });
   }
 }

@@ -12,13 +12,15 @@ import SearchStatus from '@/components/SearchStatus';
 
 import SearchBar from './SearchBar';
 
+// FIXME: prop drilling these parameters are not ideal
 interface Props {
-  isCached: boolean;
   isLoading: boolean;
   handleChange: (term: string) => void;
+  isCached?: boolean;
+  hitCount?: number;
 }
 
-const Navbar: FC<Props> = ({ isCached, isLoading, handleChange }) => {
+const Navbar: FC<Props> = ({ isCached, hitCount, isLoading, handleChange }) => {
   return (
     <AppBar position="static">
       <Toolbar
@@ -41,7 +43,7 @@ const Navbar: FC<Props> = ({ isCached, isLoading, handleChange }) => {
         <Box>
           <SearchBar handleChange={handleChange} />
         </Box>
-        <SearchStatus isCached={isCached} isLoading={isLoading} />
+        <SearchStatus {...{ isCached, isLoading, hitCount }} />
       </Toolbar>
       <LinearProgress sx={{ visibility: isLoading ? 'visible' : 'hidden' }} />
     </AppBar>

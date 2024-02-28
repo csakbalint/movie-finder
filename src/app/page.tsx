@@ -29,7 +29,8 @@ const MoviesPage = () => {
       <Navbar
         handleChange={setQuery}
         isLoading={isFetching}
-        isCached={data?.cached ?? false}
+        isCached={data?.cached}
+        hitCount={data?.hit_count}
       />
       <Container maxWidth="lg" sx={{ py: 2, flexGrow: 1, overflowY: 'auto' }}>
         {isEmpty(data?.results) && (
