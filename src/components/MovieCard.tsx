@@ -22,7 +22,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     ? `${process.env.NEXT_PUBLIC_MOVIESDB_IMAGE_URL}${movie.poster_path}`
     : '/movie-placeholder.png';
   return (
-    <Card>
+    <Card style={{ height: '100%' }}>
       {/** TODO: implement details page */}
       <CardActionArea>
         <CardMedia
