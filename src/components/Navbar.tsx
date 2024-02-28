@@ -38,11 +38,9 @@ const Navbar: FC<Props> = ({ isCached, hitCount, isLoading, handleChange }) => {
           component="div"
           sx={{ display: { xs: 'none', sm: 'block' } }}
         >
-          Movie finder
+          Movie Finder
         </Typography>
-        <Box>
-          <SearchBar handleChange={handleChange} />
-        </Box>
+        <SearchBar handleChange={handleChange} />
         <SearchStatus {...{ isCached, isLoading, hitCount }} />
       </Toolbar>
       <LinearProgress sx={{ visibility: isLoading ? 'visible' : 'hidden' }} />

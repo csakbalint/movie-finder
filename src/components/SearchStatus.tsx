@@ -27,11 +27,7 @@ const SearchStatus: FC<Props> = ({
         <CloudDownloadOutlinedIcon />
       )}
       <Typography variant="body2" color="text.white" fontWeight="bold">
-        {isLoading
-          ? 'Loading...'
-          : isCached
-            ? `Cached (${hitCount})`
-            : 'Fetched'}
+        {isLoading ? 'Loading' : isCached ? `Cached (${hitCount})` : 'Fetched'}
       </Typography>
     </Box>
   );
