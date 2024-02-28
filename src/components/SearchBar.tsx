@@ -57,6 +57,7 @@ interface Props {
   handleChange: (term: string) => void;
 }
 
+// FIXME: cannot reset the search input
 const SearchBar: React.FC<Props> = ({ handleChange }) => {
   const theme = useTheme();
   const [search, setSearch] = useState('');

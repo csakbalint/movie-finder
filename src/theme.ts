@@ -14,6 +14,7 @@ const roboto = Roboto({
   display: 'swap',
 });
 
+// TODO: involve ux and ui designer for better design
 const theme = createTheme({
   palette: {
     primary: {

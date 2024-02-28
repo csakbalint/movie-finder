@@ -2,6 +2,7 @@ import { Alert, Snackbar } from '@mui/material';
 
 import { FC, useEffect, useState } from 'react';
 
+// TODO: handle stacking of multiple errors
 const RequestErrorAlert: FC<{ error: Error | null }> = ({ error }) => {
   const [isOpen, setIsOpen] = useState(false);
 

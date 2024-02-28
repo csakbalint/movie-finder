@@ -1,3 +1,8 @@
+/**
+ * TODO: camelCase attributes would be better.
+ * This interface represent the exact result coming from the API.
+ * It would be better to have a separate interface for the UI representation
+ */
 export interface Movie {
   adult: boolean;
   backdrop_path: string | null;
