@@ -47,11 +47,18 @@
 
 ## Table of Contents
 
+- [Demo](#demo)
 - [Features](#features)
 - [Roadmap](#roadmap)
 - [Future improvements](#future-improvements)
 - [Installation](#installation)
 - [Deployment](#deployment)
+
+## Demo
+
+There is a public deployment for demoing purposes, which is accessible via [this url](http://ec2-13-53-235-185.eu-north-1.compute.amazonaws.com/).
+
+I'd like to apolize for several missing features including CI/CD, programmatical tests or TLS protocol in the deployment. Unfortunately, owing to constraints on my available time these parts of the software may benefit from additional attention.
 
 ## Features
 
@@ -71,18 +78,18 @@
 - [ ] Write snapshot tests for front-end components
 - [ ] Generate code coverage and static analysis
 - [x] Make Docker based production build
-- [ ] Create CI/CD pipeline, validate and build the app with it
-- [ ] Configure production environment, deploy the application
+- [x] Manually deploy the application
+- [ ] Create CI/CD pipeline, validate, build and deploy the application with it
 
 ## Future improvements
 
 - Integrate user management and authentication
 - Define and introduce plans and billing
-- Scale application with serverless deployment (e.g. with AWS, Azure)
+- HA Deployment
 
 ## Installation
 
-The software can be installed by the following steps:
+The codebase can be made ready for development by the following steps:
 
 1. **Provide environment <sup>(optional)</sup>**
 
@@ -102,7 +109,7 @@ The software can be installed by the following steps:
    git clone https://github.com/csakbalint/movie-finder.git
    ```
 
-3. **Setup environment variable**
+3. **Setup environment variables**
 
    Copy the `.env.example` and create a new file called `.env.local`
 
@@ -121,7 +128,7 @@ The software can be installed by the following steps:
    The software needs Redis to operate correctly. Execute the following command to start it
 
    ```
-   docker-compose up
+   docker-compose up redis -d
    ```
 
 6. **Launch the application**
@@ -130,6 +137,30 @@ The software can be installed by the following steps:
 
    ```
    yarn dev
+   ```
+
+   ℹ️ The application will be hosted on the http://localhost:3000.
+
+   🎉 Done! You are ready to go!
+
+## Deployment
+
+The repository includes a production-ready Docker image for the application and a rather simple setup for a Docker based deployment.
+
+In order to launch it, the following steps are required:
+
+1. **Setup environment variables**
+
+   Copy the `.env.example` and create a new file called `.env.production`
+
+   Change the `REDIS_HOST` variable to `redis`
+
+2. **Start the environment**
+
+   The software is operated with docker-compose. Execute to following command to start it.
+
+   ```
+   docker-compose up
    ```
 
    ℹ️ The application will be hosted on the http://localhost:3000.
